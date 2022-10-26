@@ -1,0 +1,23 @@
+body {
+    margin: -232.5px 0px 0px;
+    overflow: hidden;
+    width: 1920px;
+    height: 1440px;
+}
+
+.model{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#video{
+    z-index: -1;
+}
+
+#video_canvas{
+    POSITION: ABSOLUTE;
+    width: 100%;
+    top: 0;
+    height: 100%;
+}
