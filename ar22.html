@@ -3,11 +3,15 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta aframe-injected="" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no,minimal-ui,viewport-fit=cover">
-        <title>관동 고분 공원</title>
-        <link rel="stylesheet" href="./common.css">
-    </head>
-    <body>
-<!-- Import maps polyfill -->
+        <title>김해 천문대</title>
+        <link rel="stylesheet" href="./src/css/common.css">
+        <link rel="stylesheet" href="./src/css/layout.css">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="./src/js/popup.js"></script>
+        <script src="./src/js/audio.js"></script>
+
+        <!-- Import maps polyfill -->
 <!-- Remove this when import maps will be widely supported -->
 <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
 
@@ -45,7 +49,7 @@
         document.body.appendChild( container );
 
         camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.01, 2000 );
-        camera.position.set( 0, 1, 1 );
+        camera.position.set( 0, 0, 0 );
 
         scene = new THREE.Scene();
         clock = new THREE.Clock();
@@ -64,13 +68,12 @@
 
                 // model
                 const loader = new GLTFLoader().setPath( 'models/makeModel/' );
-                loader.load( 'g.glb', function ( gltf ) {
-                    console.log(gltf);
+                loader.load( 'sd_cha_talk.glb', function ( gltf ) {
                     gltf.scene.position.setX(0);
-                    gltf.scene.position.setY(0);
+                    gltf.scene.position.setY(-0.8);
                     gltf.scene.position.setZ(0);
 
-                    gltf.scene.scale.set(0.05, 0.05, 0.05);
+                    gltf.scene.scale.set(0.006, 0.006, 0.006);
                     scene.add( gltf.scene );
                 
                     mixer = new THREE.AnimationMixer(gltf.scene)
@@ -140,12 +143,77 @@
         renderer.render( scene, camera );
     }
 </script>
-<div id="audio">
-	<audio preload autoplay>
-		<source src="audio/g.wav" type="audio/wav">
-	</audio>
-</div>
+    </head>
+    <body>
 <video id="video" style="width:1px; height:1px;" playsinline></video>
 <canvas id="canvas" style="position:absolute ;top:1px;left:0;"></canvas>
+<!--header 영역 시작-->
+<div id="header">
+    <div class="header_wrap">
+        <div class="header_action">
+            <a href="javascript:history.go(-1)" class="back"> <!--뒤로가기 링크 넣어주세요-->
+                <img src="https://smartcity.gimhae.go.kr/mobilear/html/assets/images/icon-history-back.png" alt="뒤로가기">
+            </a>
+        </div>
+        <h1>
+            <a href="javascript:void(0);">
+                <img src="https://smartcity.gimhae.go.kr/mobilear/html/assets/images/logo-header.png" alt="보고가야 로고" class="logo">
+            </a>
+        </h1>
+    </div>
+</div>
+<!--header 영역 끝-->
+<!--국기 영역 시작-->
+<div id="flag">
+    <div class="ko audio_wrap audio_kr">
+        <button onclick="javascript:toggleSound();">
+            <img src="./src/img/ko.png" alt="한국 국기">
+        </button>
+        <audio id="audio" preload autoplay>
+            <source src="./src/audio/ko/22_c.mp3" type="audio/mp3">
+        </audio>
+    </div>
+    <div class="en audio_wrap audio_en">
+        <button onclick="javascript:toggleSound2();">
+            <img src="./src/img/en.png" alt="미국 국기">
+        </button>
+        <audio id="audio_en">
+            <source src="./src/audio/en/22_c.mp3" type="audio/mp3">
+        </audio>
+    </div>
+    <div class="jp audio_wrap audio_jp">
+        <button onclick="javascript:toggleSound3();">
+            <img src="./src/img/jp.png" alt="일본 국기">
+        </button>
+        <audio id="audio_jp">
+            <source src="./src/audio/jp/22_c.mp3" type="audio/mp3">
+        </audio>
+    </div>
+    <div class="cn audio_wrap audio_cn">
+        <button onclick="javascript:toggleSound4();">
+            <img src="./src/img/cn.png" alt="중국 국기">
+        </button>
+        <audio id="audio_cn">
+            <source src="./src/audio/cn/22_c.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+</div>
+<!--국기 영역 끝-->
+
+<!--브라우저 호환 안내 팝업 시작-->
+<div id="popup">
+    <div class="guidePopup">
+        <div class="txtArea">
+            <h3>브라우저 호환 안내</h3>
+            <p>
+                구글 크롬 브라우저 앱 이용을 권장합니다.            
+            </p>
+        </div>
+        <div class="x_btn">
+            <span>닫기</span> 
+        </div>
+    </div>
+</div>
+<!--브라우저 호환 안내 팝업 끝-->
 </body>
 </html>
